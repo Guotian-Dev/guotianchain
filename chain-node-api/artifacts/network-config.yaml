@@ -19,7 +19,7 @@ x-type: "hlfv1"
 #
 # Describe what the target network is/does.
 #
-description: "Balance Transfer Network"
+description: "Guotian Pay Wallete Network"
 
 #
 # Schema version of the content. Used by the SDK to apply the corresponding parsing rules.
@@ -44,11 +44,11 @@ channels:
     # operational decisions to share loads from applications among the orderers.  The values must
     # be "names" of orgs defined under "organizations/peers"
     orderers:
-      - orderer.example.com
+      - orderer.guotianchain.com
 
     # Required. list of peers from participating orgs
     peers:
-      peer0.org1.example.com:
+      peer0.org1.guotianchain.com:
         # [Optional]. will this peer be sent transaction proposals for endorsement? The peer must
         # have the chaincode installed. The app can also use this property to decide which peers
         # to send the chaincode install request. Default: true
@@ -68,19 +68,19 @@ channels:
         # Default: true
         eventSource: true
 
-      peer1.org1.example.com:
+      peer1.org1.guotianchain.com:
         endorsingPeer: false
         chaincodeQuery: true
         ledgerQuery: true
         eventSource: false
 
-      peer0.org2.example.com:
+      peer0.org2.guotianchain.com:
         endorsingPeer: true
         chaincodeQuery: true
         ledgerQuery: true
         eventSource: true
 
-      peer1.org2.example.com:
+      peer1.org2.guotianchain.com:
         endorsingPeer: false
         chaincodeQuery: true
         ledgerQuery: true
@@ -101,8 +101,8 @@ organizations:
     mspid: Org1MSP
 
     peers:
-      - peer0.org1.example.com
-      - peer1.org1.example.com
+      - peer0.org1.guotianchain.com
+      - peer1.org1.guotianchain.com
 
     # [Optional]. Certificate Authorities issue certificates for identification purposes in a Fabric based
     # network. Typically certificates provisioning is done in a separate process outside of the
@@ -120,9 +120,9 @@ organizations:
     # this way. The SDK should allow applications to set the org admin identity via APIs, and only use
     # this route as an alternative when it exists.
     adminPrivateKey:
-      path: artifacts/channel/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/keystore/5890f0061619c06fb29dea8cb304edecc020fe63f41a6db109f1e227cc1cb2a8_sk
+      path: artifacts/channel/crypto-config/peerOrganizations/org1.guotianchain.com/users/Admin@org1.guotianchain.com/msp/keystore/5c42466331451d9bf41bb6f8082044ff1d0024cc1104d8eef11f0b95b1647221_sk
     signedCert:
-      path: artifacts/channel/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/signcerts/Admin@org1.example.com-cert.pem
+      path: artifacts/channel/crypto-config/peerOrganizations/org1.guotianchain.com/users/Admin@org1.guotianchain.com/msp/signcerts/Admin@org1.guotianchain.com-cert.pem
 
   # the profile will contain public information about organizations other than the one it belongs to.
   # These are necessary information to make transaction lifecycles work, including MSP IDs and
@@ -132,14 +132,14 @@ organizations:
   Org2:
     mspid: Org2MSP
     peers:
-      - peer0.org2.example.com
-      - peer1.org2.example.com
+      - peer0.org2.guotianchain.com
+      - peer1.org2.guotianchain.com
     certificateAuthorities:
       - ca-org2
     adminPrivateKey:
-      path: artifacts/channel/crypto-config/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp/keystore/1995b11d6573ed3be52fcd7a5fa477bc0f183e1f5f398c8281d0ce7c2c75a076_sk
+      path: artifacts/channel/crypto-config/peerOrganizations/org2.guotianchain.com/users/Admin@org2.guotianchain.com/msp/keystore/3b1f020dac43dcef5dabf7cfed2ac6809d59335c2e9f3356350df16fdfbe7e2a_sk
     signedCert:
-      path: artifacts/channel/crypto-config/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp/signcerts/Admin@org2.example.com-cert.pem
+      path: artifacts/channel/crypto-config/peerOrganizations/org2.guotianchain.com/users/Admin@org2.guotianchain.com/msp/signcerts/Admin@org2.guotianchain.com-cert.pem
 
 #
 # List of orderers to send transaction and channel create/update requests to. For the time
@@ -147,24 +147,24 @@ organizations:
 # SDK is implementation specific. Consult each SDK's documentation for its handling of orderers.
 #
 orderers:
-  orderer.example.com:
+  orderer.guotianchain.com:
     url: grpcs://localhost:7050
 
     # these are standard properties defined by the gRPC library
     # they will be passed in as-is to gRPC client constructor
     grpcOptions:
-      ssl-target-name-override: orderer.example.com
+      ssl-target-name-override: orderer.guotianchain.com
       grpc-max-send-message-length: 15
 
     tlsCACerts:
-      path: artifacts/channel/crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/tls/ca.crt
+      path: artifacts/channel/crypto-config/ordererOrganizations/guotianchain.com/orderers/orderer.guotianchain.com/tls/ca.crt
 
 #
 # List of peers to send various requests to, including endorsement, query
 # and event listener registration.
 #
 peers:
-  peer0.org1.example.com:
+  peer0.org1.guotianchain.com:
     # this URL is used to send endorsement and query requests
     url: grpcs://localhost:7051
 
@@ -172,33 +172,33 @@ peers:
     eventUrl: grpcs://localhost:7053
 
     grpcOptions:
-      ssl-target-name-override: peer0.org1.example.com
+      ssl-target-name-override: peer0.org1.guotianchain.com
     tlsCACerts:
-      path: artifacts/channel/crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
+      path: artifacts/channel/crypto-config/peerOrganizations/org1.guotianchain.com/peers/peer0.org1.guotianchain.com/tls/ca.crt
 
-  peer1.org1.example.com:
+  peer1.org1.guotianchain.com:
     url: grpcs://localhost:7056
     eventUrl: grpcs://localhost:7058
     grpcOptions:
-      ssl-target-name-override: peer1.org1.example.com
+      ssl-target-name-override: peer1.org1.guotianchain.com
     tlsCACerts:
-      path: artifacts/channel/crypto-config/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/tls/ca.crt
+      path: artifacts/channel/crypto-config/peerOrganizations/org1.guotianchain.com/peers/peer1.org1.guotianchain.com/tls/ca.crt
 
-  peer0.org2.example.com:
+  peer0.org2.guotianchain.com:
     url: grpcs://localhost:8051
     eventUrl: grpcs://localhost:8053
     grpcOptions:
-      ssl-target-name-override: peer0.org2.example.com
+      ssl-target-name-override: peer0.org2.guotianchain.com
     tlsCACerts:
-      path: artifacts/channel/crypto-config/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
+      path: artifacts/channel/crypto-config/peerOrganizations/org2.guotianchain.com/peers/peer0.org2.guotianchain.com/tls/ca.crt
 
-  peer1.org2.example.com:
+  peer1.org2.guotianchain.com:
     url: grpcs://localhost:8056
     eventUrl: grpcs://localhost:8058
     grpcOptions:
-      ssl-target-name-override: peer1.org2.example.com
+      ssl-target-name-override: peer1.org2.guotianchain.com
     tlsCACerts:
-      path: artifacts/channel/crypto-config/peerOrganizations/org2.example.com/peers/peer1.org2.example.com/tls/ca.crt
+      path: artifacts/channel/crypto-config/peerOrganizations/org2.guotianchain.com/peers/peer1.org2.guotianchain.com/tls/ca.crt
 
 #
 # Fabric-CA is a special kind of Certificate Authority provided by Hyperledger Fabric which allows
@@ -213,7 +213,7 @@ certificateAuthorities:
     httpOptions:
       verify: false
     tlsCACerts:
-      path: artifacts/channel/crypto-config/peerOrganizations/org1.example.com/ca/ca.org1.example.com-cert.pem
+      path: artifacts/channel/crypto-config/peerOrganizations/org1.guotianchain.com/ca/ca.org1.guotianchain.com-cert.pem
 
     # Fabric-CA supports dynamic user enrollment via REST APIs. A "root" user, a.k.a registrar, is
     # needed to enroll and invoke new users.
@@ -228,7 +228,7 @@ certificateAuthorities:
     httpOptions:
       verify: false
     tlsCACerts:
-      path: artifacts/channel/crypto-config/peerOrganizations/org2.example.com/ca/ca.org2.example.com-cert.pem
+      path: artifacts/channel/crypto-config/peerOrganizations/org2.guotianchain.com/ca/ca.org2.guotianchain.com-cert.pem
     registrar:
       - enrollId: admin
         enrollSecret: adminpw

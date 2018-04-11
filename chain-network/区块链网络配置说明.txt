@@ -1,0 +1,26 @@
+网络拓扑结构
+
+Org1 -- 国天股权投资基金（深圳）有限公司
+Org2 -- 国天区块链网络科技(深圳)有限公司
+
+
+Orderer
+orderer.guotianchain.com
+
+Org1配置
+peers
+peer0.org1.guotianchain.com
+peer1.org1.guotianchain.com
+ca
+ca0.org1.guotianchain.com
+ca1.org1.guotianchain.com
+
+Org2配置
+peers
+peer0.org2.guotianchain.com
+peer1.org2.guotianchain.com
+ca
+ca0.org2.guotianchain.com
+ca1.org2.guotianchain.com
+
+
