@@ -55,8 +55,8 @@ function installNodeModules() {
 }
 
 
-restartNetwork
+#restartNetwork
 
-installNodeModules
+#installNodeModules
 
 PORT=4000 node app
