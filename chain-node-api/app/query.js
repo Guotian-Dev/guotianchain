@@ -41,19 +41,23 @@ var queryChaincode = async function(peer, channelName, chaincodeName, args, fcn,
 		};
 		let response_payloads = await channel.queryByChaincode(request);
 		if (response_payloads) {
+			logger.info('----------------'+response_payloads);
 			for (let i = 0; i < response_payloads.length; i++) {
 				logger.info(args[0]+' now has ' + response_payloads[i].toString('utf8') +
 					' after the move');
 			}
-			return args[0]+' now has ' + response_payloads[0].toString('utf8') +
-				' after the move';
+			//return args[0]+' now has ' + response_payloads[0].toString('utf8') + ' after the move';
+			//return response_payloads[0].toString('utf8');
+			return '{"code":"200", "msg": "", ' + '"data":' +response_payloads[0].toString('utf8')+'}';
 		} else {
 			logger.error('response_payloads is null');
-			return 'response_payloads is null';
+			//return 'response_payloads is null';
+			return '{"code":"100", "msg":"error query", "data":""}';
 		}
 	} catch(error) {
 		logger.error('Failed to query due to error: ' + error.stack ? error.stack : error);
-		return error.toString();
+		//return error.toString();
+		return '{"code":"100", "msg":"error query", "data":""}';
 	}
 };
 var getBlockByNumber = async function(peer, channelName, blockNumber, username, org_name) {

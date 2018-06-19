@@ -25,6 +25,13 @@ var invokeChaincode = async function(peerNames, channelName, chaincodeName, fcn,
 	logger.debug(util.format('\n============ invoke transaction on channel %s ============\n', channelName));
 	var error_message = null;
 	var tx_id_string = null;
+    
+    //自定义返回（by Longxing.QIU）
+    var tx_metadata = null;
+    var tx_block_num = null;
+    var tx_signature = null;
+    var myChainCodeResponse;
+
 	try {
 		// first setup the client for this org
 		var client = await helper.getClientForOrg(org_name, username);
@@ -78,7 +85,11 @@ var invokeChaincode = async function(peerNames, channelName, chaincodeName, fcn,
 				'Successfully sent Proposal and received ProposalResponse: Status - %s, message - "%s", metadata - "%s", endorsement signature: %s',
 				proposalResponses[0].response.status, proposalResponses[0].response.message,
 				proposalResponses[0].response.payload, proposalResponses[0].endorsement.signature));
-
+            
+            //设置返回数据参数(QIU)
+            //json解析成对象
+            tx_metadata = JSON.parse(proposalResponses[0].response.payload);
+            
 			// wait for the channel-based event hub to tell us
 			// that the commit was good or bad on each peer in our organization
 			var promises = [];
@@ -95,6 +106,9 @@ var invokeChaincode = async function(peerNames, channelName, chaincodeName, fcn,
 						logger.info('The chaincode invoke chaincode transaction has been committed on peer %s',eh.getPeerAddr());
 						logger.info('Transaction %s has status of %s in blocl %s', tx, code, block_num);
 						clearTimeout(event_timeout);
+
+						//设置参数（QIU）
+						tx_block_num = block_num;
 
 						if (code !== 'VALID') {
 							let message = util.format('The invoke chaincode transaction was invalid, code:%s',code);
@@ -126,6 +140,9 @@ var invokeChaincode = async function(peerNames, channelName, chaincodeName, fcn,
 				proposalResponses: proposalResponses,
 				proposal: proposal
 			};
+
+            //logger.debug(util.format('"orderer_request=%j"', orderer_request));
+
 			var sendPromise = channel.sendTransaction(orderer_request);
 			// put the send to the orderer last so that the events get registered and
 			// are ready for the orderering and committing
@@ -167,7 +184,18 @@ var invokeChaincode = async function(peerNames, channelName, chaincodeName, fcn,
 			org_name, channelName, tx_id_string);
 		logger.info(message);
 
-		return tx_id_string;
+        //return tx_id_string;
+		myChainCodeResponse = {
+			code : 200,
+			msg : '',
+			data: {
+				txId: tx_id_string,
+				blockNum: tx_block_num,
+                metada: tx_metadata
+			}
+		};
+        return myChainCodeResponse;
+		
 	} else {
 		let message = util.format('Failed to invoke chaincode. cause:%s',error_message);
 		logger.error(message);
